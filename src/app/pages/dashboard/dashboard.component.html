@@ -1,0 +1,124 @@
+<div class="row" style="height: 100vh">
+    <div class="cell-3" style="height: 100vh; background-color: #004578; color:#fff;">
+        <div style="padding: 20px; padding-top: 0px;">
+            <div class="row" style="display: none;">
+                <div class="cell-2" style="border: 0px solid #000">
+                    <h1 class="">
+                        <fa name="user" style="border: 0px solid #000"></fa>
+                    </h1>
+                </div>
+                <div class="cell-10" style="border: 0px solid #000; padding-top: 25px;">
+                    <b style="margin-left: 0px; font-size: 1.2em">
+                        Nom d'utilisateur
+                    </b>
+                    <div style="margin-top: -5px;">
+                        Qualité
+                    </div>
+                </div>
+            </div>
+            <h1>
+                ACNP
+            </h1>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li (click)="document()" class="text-leader2">
+                    <span style="margin-right: 10px;">
+                        Nouveau document
+                    </span>
+                    <fa style="float: right" name="plus"></fa>
+                </li>
+                <li (click)="inscription()" class="text-leader2">
+                    <span style="margin-right: 10px;">
+                        Nouvel utilisateur
+                    </span>
+                    <fa style="float: right" name="user-plus"></fa>
+                </li>
+            </ul>
+
+            <h4>
+                Récents
+            </h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
+                    <span style="margin-left: 0px; display: inline-block;">
+                        <span class="text-leader2">
+                            Premier document
+                        </span>
+                        <small style="display: block; margin-top: 0px;">
+                            Dernière modification 14/05/2019 14:58
+                        </small>
+                    </span>
+                </li>
+                <li style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
+                    <span style="margin-left: 0px; display: inline-block;">
+                        <span class="text-leader2">
+                            Second document
+                        </span>
+                        <small style="display: block; margin-top: 0px;">
+                            Dernière modification 13/05/2019 17:13
+                        </small>
+                    </span>
+                </li>
+                <li style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
+                    <span style="margin-left: 0px; display: inline-block;">
+                        <span class="text-leader2">
+                            Troisième document
+                        </span>
+                        <small style="display: block; margin-top: 0px;">
+                            Dernière modification 12/05/2019 21:01
+                        </small>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div style="position: absolute; padding: 20px; bottom: 0; left: 0">
+            &copy; ANAFOR
+        </div>
+    </div>
+    <div class="cell-9" style="height: 100vh; background-color: #fafafa">
+        <div style="padding: 40px; padding-top: 0px;">
+            <h2 style="margin-bottom: 20px;">
+                Liste des documents
+            </h2>
+            <p class="text-leader" style="margin-top: -15px;">
+                Texte d'explication utile à une meilleure compréhension
+            </p>
+            <div class="row" style="margin-top: 20px;">
+                <div *ngFor="let d of documents" class="cell-4">
+                    <div class="document" (click)="document()" style="">
+                        <h6>
+                            Titre du document
+                        </h6>
+                        <div style="margin-top:-20px;">
+                            Sections concernées
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <b>
+                                Proriétaire du document
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="position:fixed; top:-15px; right: 20px; width: 25vw; text-align: right">
+    <div class="row">
+        <div class="cell-10" style="border: 0px solid #000; padding-top: 25px;">
+            <b style="margin-left: 0px; font-size: 1.2em">
+                Nom d'utilisateur
+            </b>
+            <div style="margin-top: -5px;">
+                Qualité
+            </div>
+        </div>
+        <div class="cell-2" style="border: 0px solid #000">
+            <h1 class="">
+                <fa name="user" style="color: #004578"></fa>
+            </h1>
+        </div>
+
+    </div>
+</div>

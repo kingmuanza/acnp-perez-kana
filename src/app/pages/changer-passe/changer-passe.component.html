@@ -1,0 +1,50 @@
+<div class="row" style="height: 100vh">
+        <div class="cell-4" style="height: 100vh;  background-color: #004578; color: #fff;">
+            <div style="padding: 40px; padding-top: 40px;">
+                <p (click)="dashboard()" class="text-leader2" style="cursor: pointer;">
+                    Revenir au tableau de bord
+                </p>
+                <h1 class="display4" style="color: #fff">
+                    <fa name="lock"></fa>
+                </h1>
+                <h1>
+                    Changer de mot de passe
+                </h1>
+                <p class="text-leader">
+                    Quelques explications sur la nécessité de la création du compte
+                </p>
+            </div>
+            <div style="position: absolute; padding: 40px; bottom: 0; left: 0">
+                &copy; ANAFOR
+            </div>
+        </div>
+        <div class="cell-8" style="height: 100vh; background-color: #eee">
+            <div style="padding: 40px;">
+                <h2 style="margin-bottom: 20px; font-weight: 100">
+                    Veuillez remplir le formulaire
+                </h2>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegisterForm()" autocomplete="off">
+                    <div class="row">
+                        <div class="cell-12">
+                            <input formControlName="ancien" data-prepend="Acien Mot de passe" type="password" data-role="input">
+                        </div>
+                        <div class="cell-12">
+                            <input formControlName="nouveau" data-prepend="Nouveau Mot de passe" type="password" data-role="input">
+                        </div>
+                        <div class="cell-12">
+                            <input formControlName="confirmation" data-prepend="Confirmation Mot de passe" type="password" data-role="input">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell-12">
+                            <button type="submit" [disabled]="registerForm.invalid || !activeForm" style="background-color: #004578; color: #fff" class="button">
+                                Terminé
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    
+        </div>
+    
+    </div>

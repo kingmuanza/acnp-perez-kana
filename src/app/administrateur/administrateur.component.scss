@@ -1,0 +1,51 @@
+.pointeur {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.pointeur:hover{
+    opacity: 1;
+}
+ul li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+ul li:hover{
+    opacity: 0.8;
+}
+
+.document {
+    cursor: pointer; 
+    padding: 15px; 
+    padding-top: 0px; 
+    border: 1px solid #aaa;
+    height: 100px;
+    overflow: hidden;
+}
+.document.nouveau{
+    cursor: pointer; 
+    padding: 15px; 
+    padding-top: 0px; 
+    border: 1px #aaa dashed !important;
+    height: 100px;
+    overflow: hidden;
+    background-color: #fff;
+}
+.document.nouveau:hover{
+    cursor: pointer; 
+    padding: 15px; 
+    padding-top: 0px; 
+    border: 1px #aaa solid !important;
+    height: 100px;
+    overflow: hidden;
+}
+.document:hover{
+    opacity: 0.5;
+}
+
+.document .libelle{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    padding: 15px;
+}

@@ -1,0 +1,18 @@
+<div *ngIf="espece" style="padding: 20px; padding-top: 0px;;">
+    <h2>
+        {{espece.nom}}
+    </h2>
+    <p style="margin-top: -10px;;">
+        Pour changer le nom de l'espèce, modifier le champ ci dessous
+    </p>
+    <div class="row" style="margin-bottom: 40px; margin-top: 20px;;;">
+        <div class="col-lg-12">
+            <input [(ngModel)]="espece.nom" data-prepend="Nom" autocomplete="false" type="text" data-role="input">
+        </div>
+    </div>
+    <div>
+        <button (click)="enregistrer()" class="button secondary">
+            Enregistrer
+        </button>
+    </div>
+</div>

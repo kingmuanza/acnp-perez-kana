@@ -1,0 +1,232 @@
+<div class="row" style="height: 100vh">
+    <div class="cell-3" style="height: 100vh; overflow: hidden; background-color: #004578; color:#fff;">
+        <div class="row">
+            <div class="cell-2" style="height: 110vh; margin-top: -20px; background-color: #111; padding-top: 20px;">
+                <div style="height: 100vh;">
+
+                    <h4 (click)="nouveauDocument()" title="Nouveau document" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer">
+                        <fa name="plus"></fa>
+                    </h4>
+                    <h4 (click)="inscription()" title="Nouvel utilisateur" class="text-center pointeur" style="cursor: pointer">
+                        <fa name="user-plus"></fa>
+                    </h4>
+                    <div style="position: absolute; bottom:20px;; width: 100%; left: 0;">
+                        <h4 (click)="changerPasse()" title="Changez de mot de passe" style="cursor: pointer; margin-bottom: 30px;;"
+                            class="text-center pointeur">
+                            <fa name="lock"></fa>
+                        </h4>
+                        <h4 (click)="deconnexion()" title="Déconnexion" style="cursor: pointer" class="text-center pointeur">
+                            <fa name="power-off"></fa>
+                        </h4>
+                    </div>
+                </div>
+
+            </div>
+            <div class="cell-10">
+                <div style="padding: 15px; padding-top: 0px;">
+                    <h1 style="margin-top: 0px;">
+                        ACNP
+                    </h1>
+
+                    <h4>
+                        Récents
+                    </h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li *ngFor="let d of documents" style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
+                            <span style="margin-left: 0px; display: inline-block;">
+                                <span class="text-leader2">
+                                    {{d.titre}}
+                                </span>
+                                <small style="display: block; margin-top: 0px;">
+                                    Dernière modification {{d.date}}
+                                </small>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div style="position: absolute; padding: 20px; bottom: 0; left: 0">
+                    &copy; ANAFOR
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="cell-9" style="height: 100vh; overflow: auto; background-color: #fafafa">
+        <div style="padding: 40px; padding-top: 0px; padding-bottom: 10px;">
+            <h2 style="margin-bottom: 20px;">
+                Liste des documents
+            </h2>
+            <p class="text-leader2" style="margin-top: -15px;">
+                Texte d'explication utile à une meilleure compréhension
+            </p>
+            <div class="row" style="margin-top: 10px;">
+                <div class="cell-4">
+                    <div (click)="nouveauDocument()" class="document nouveau text-center">
+                        <h2 class="">
+                            <fa name="plus"></fa>
+                        </h2>
+                        <div class="libelle">
+                            <b>
+                                Nouveau document
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let d of documents; let i = index" class="cell-4">
+                    <div class="document" (click)="ouvrir(d)" style="">
+                        <span style="float: right; color: #777">
+                            {{sectionsValidees(d)}}/{{d.sections.length}}
+                        </span>
+                        <h6>
+                           {{d.titre}}
+                        </h6>
+                        <div style="margin-top:-20px;">
+                                {{d.date}}
+                        </div>
+                        <div class="libelle">
+                            <b>
+                                    {{d.proprietaire.nomComplet}}
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 40px; padding-top: 0px; padding-bottom: 10px;">
+            <h2 style="margin-bottom: 20px;">
+                Sections en attente de validation
+            </h2>
+            <p class="text-leader2" style="margin-top: -15px;">
+                Texte d'explication utile à une meilleure compréhension
+            </p>
+            <div class="row" style="margin-top: 10px;">
+                <div *ngFor="let d of documents; let i=index" class="cell-4">
+                    <div *ngIf="i<3" class="document" style="">
+                        <h6>
+                            Titre du document
+                        </h6>
+                        <div style="margin-top:-20px;">
+                            Section concernée
+                        </div>
+                        <div class="libelle">
+                            <b>
+                                Utilisateur en attente de validation
+                            </b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 40px; padding-top: 0px;">
+            <h2 style="margin-bottom: 20px;">
+                Liste des utilisateurs
+            </h2>
+            <p class="text-leader2" style="margin-top: -15px;">
+                Texte d'explication utile à une meilleure compréhension
+            </p>
+            <div class="row" style="margin-top: 10px;">
+                <div class="cell-4">
+                    <div class="document nouveau text-center" (click)="inscription()" style="">
+                        <h2 class="">
+                            <fa name="user-plus"></fa>
+                        </h2>
+                        <div class="libelle">
+                            <b>
+                                Nouvel utilisateur
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let d of documents" class="cell-4">
+                    <div class="document" style="">
+                        <h6>
+                            Nom d'utilisateur
+                        </h6>
+                        <div style="margin-top:-20px;">
+                            Qualité
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="position:fixed; top:-15px; right: 20px; width: 25vw; text-align: right">
+    <div class="row">
+        <div class="cell-10" style="border: 0px solid #000; padding-top: 25px;">
+            <b style="margin-left: 0px; font-size: 1.2em">
+                {{utilisateur.nomComplet}}
+            </b>
+            <div style="margin-top: -5px;">
+                {{utilisateur.qualite}}
+            </div>
+        </div>
+        <div class="cell-2" style="border: 0px solid #000">
+            <h1 class="">
+                <fa name="user" style="color: #004578"></fa>
+            </h1>
+        </div>
+
+    </div>
+</div>
+
+<div id="choixmodele" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <div class="dialog-title">
+        Choisissez un modèle de document
+    </div>
+    <div class="dialog-content">
+        <div class="row">
+            <div class="col-lg-4 js-dialog-close" (click)="nouveauACNP()">
+                <div class="pointeur" style="height: 300px; border: 1px solid #AAA; padding: 20px">
+                    <h1>ACNP 2018</h1>
+                </div>
+                <div style="padding: 5px; padding-left: 20px; background-color: #AAA">
+                    ACNP 2018
+                </div>
+            </div>
+            <div class="col-lg-4 js-dialog-close" (click)="nouveauVierge()">
+                <div class="pointeur" style="height: 300px; border: 1px solid #AAA">
+
+                </div>
+                <div style="padding: 5px; padding-left: 20px; background-color: #AAA">
+                    Document vierge
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">Annuler</button>
+    </div>
+</div>
+
+<div id="menu-gauche" data-role="charms" data-position="left">
+    <div>
+        <span onclick="Metro.charms.close('#menu-gauche');" style="float: right; padding: 10px; cursor: pointer;">
+            <fa name="close"></fa>
+        </span>
+    </div>
+    <div style="width: 25vw; margin-top: 20px;">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li  class="text-leader2">
+                <span style="margin-right: 10px;">
+                    Documents
+                </span>
+            </li>
+            <li (click)="utilisateurs()" class="text-leader2">
+                <span style="margin-right: 10px;">
+                    Utilisateurs
+                </span>
+            </li>
+            <li (click)="validations()" class="text-leader2">
+                <span style="margin-right: 10px;">
+                    Validations
+                </span>
+            </li>
+        </ul>
+
+    </div>
+</div>

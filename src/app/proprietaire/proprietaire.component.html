@@ -1,0 +1,114 @@
+<div class="row" style="height: 100vh">
+    <div class="cell-3" style="height: 100vh; overflow: hidden; background-color: #004578; color:#fff;">
+        <div class="row">
+            <div class="cell-2" style="height: 110vh; margin-top: -20px; background-color: #111; padding-top: 20px;">
+                <div style="height: 100vh;">
+                    <h4 (click)="refresh()" title="Nouveau document" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer">
+                        <i class="mif-refresh"></i>
+                    </h4>
+                    <h4 (click)="nouveauDocument()" title="Nouveau document" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer">
+                        <fa name="plus"></fa>
+                    </h4>
+
+                    <div style="position: absolute; bottom:20px;; width: 100%; left: 0;">
+                        <h4 (click)="changerPasse()" title="Changez de mot de passe"
+                            style="cursor: pointer; margin-bottom: 30px;;" class="text-center pointeur">
+                            <fa name="lock"></fa>
+                        </h4>
+                        <h4 (click)="deconnexion()" title="Déconnexion" style="cursor: pointer"
+                            class="text-center pointeur">
+                            <fa name="power-off"></fa>
+                        </h4>
+                    </div>
+                </div>
+
+            </div>
+            <div class="cell-10">
+                <div style="padding: 15px; padding-top: 0px;">
+                    <h1 style="margin-top: 0px;">
+                        ACNP
+                    </h1>
+
+                    <h4>
+                        Mes documents
+                    </h4>
+                    <div *ngFor="let espece of especes" style="padding-bottom: 10px;;">
+                        <h6 style="color: #fafafa;">
+                            {{espece.nom}}
+                        </h6>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <ng-container *ngFor="let d of documents; let i = index">
+                                <li *ngIf="d.espece.id === espece.id" (click)="ouvrir(d)"
+                                    style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
+                                    <span style="margin-left: 0px; display: inline-block; width: 100%;">
+                                        <span style="float: right; color: #777">
+                                            {{sectionsValidees(d)}}/{{d.sections.length}}
+                                        </span>
+                                        <span class="text-leader2">
+                                            {{d.titre}}
+                                        </span>
+                                    </span>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+
+                </div>
+                <div style="position: absolute; padding: 20px; bottom: 0; left: 0">
+                    &copy; ANAFOR
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="cell-9" style="height: 100vh; overflow: auto; background-color: #fafafa">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+
+<div *ngIf="utilisateur" style="position:fixed; top:-15px; right: 20px; width: 25vw; text-align: right">
+    <div class="row">
+        <div class="cell-10" style="border: 0px solid #000; padding-top: 25px;">
+            <b style="margin-left: 0px; font-size: 1.2em">
+                {{utilisateur.nomComplet}}
+            </b>
+            <div style="margin-top: -5px;">
+                {{utilisateur.qualite}}
+            </div>
+        </div>
+        <div class="cell-2" style="border: 0px solid #000">
+            <h1 class="">
+                <fa name="user" style="color: #004578"></fa>
+            </h1>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="choixmodele" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <div class="dialog-title">
+        Choisissez un modèle de document
+    </div>
+    <div class="dialog-content">
+        <div class="row">
+            <div *ngFor="let espece of especes" class="col-lg-4 js-dialog-close" (click)="nouveauACNP(espece)">
+                <div class="pointeur" style="height: 300px; border: 1px solid #AAA; padding: 20px">
+                    <h1>
+                        {{espece.nom}}
+                    </h1>
+                </div>
+                <div style="padding: 5px; padding-left: 20px; background-color: #AAA">
+                    {{espece.nom}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">Annuler</button>
+    </div>
+</div>

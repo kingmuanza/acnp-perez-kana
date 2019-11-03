@@ -1,0 +1,29 @@
+<div style="padding: 20px; padding-top: 0px;;">
+        <h2>
+            Liste des utilisateurs
+        </h2>
+        <p style="margin-top: -10px;;">
+            Utilisateurs et rôles
+        </p>
+        <div class="row" style="margin-bottom: 40px; margin-top: 20px;;;">
+            <div *ngFor="let u of utilisateurs" class="col-lg-4">
+                <div (click)="editUtilisateur(u)" style="padding: 10px; cursor: pointer; text-align: center;; border: 1px solid #444;">
+                    <h4>
+                        {{u.nomComplet}}
+                    </h4>
+                    <span *ngIf="u.role === '0'">
+                        Administrateur
+                    </span>
+                    <span *ngIf="u.role === '1'">
+                        Propriétaire
+                    </span>
+                    <span *ngIf="u.role === '2'">
+                        Responsable
+                    </span>
+                    <span *ngIf="u.role === '3'">
+                        Contributeur
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>

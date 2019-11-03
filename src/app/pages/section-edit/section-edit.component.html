@@ -1,0 +1,190 @@
+<div>
+    <div style="padding:20px; margin-top: 0px;;">
+        <button (click)="backClicked()" class="button">
+            Précédent
+        </button>
+        <button (click)="effacerTout()" class="button">
+            Effacer tout
+        </button>
+        <button (click)="enregistrer()" class="button">
+            Enregistrer
+        </button>
+        <button (click)="enregistrer()" class="button">
+            Charger le contenu par défaut
+        </button>
+        <button class="button">
+            Terminé
+        </button>
+        <div style="padding: 10px; padding-left: 0px; padding-right: 20px;">
+            <ng-container *ngIf="section">
+                <h2 (click)="edit(section)">
+                    {{section.titre}}
+                </h2>
+
+                <div *ngFor="let com of section.commentaires" class=""
+                    style="background-color: #eee; ; border:1px solid #aaa; padding: 5px; padding-left: 15px; margin-top:10px;">
+                    <div class="row">
+                        <div class="cell-12">
+                            <b>
+                                {{com.utilisateur.nomComplet}}
+                            </b>
+                            : "{{com.discours}}"
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin-top: 10px;;">
+                        <button (click)="saveSection()" class="button" style="background-color: #004578; color: #fff;">
+                            Enregistrer
+                        </button>
+                        <button (click)="addSection(section)" class="button primary">
+                            Ajouter un titre
+                        </button>
+                        <button (click)="addParagraphe(section)" class="button primary">
+                            Ajouter un paragraphe
+                        </button>
+                        <button (click)="addImage()" class="button primary">
+                            Ajouter une image
+                        </button>
+                        <button (click)="bibliographie()" class="button primary">
+                            Ajouter une bibliographie
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="editor">
+                    <ng-container *ngFor="let sous of section.contenu">
+
+                        <h3 *ngIf="sous.titre" (click)="edit(sous)">
+                            {{sous.titre}}
+                        </h3>
+                        <div *ngIf="sous.titre && editcode === sous.id">
+                            <div>
+                                <input type="text" [(ngModel)]="sous.titre" data-role="input">
+                            </div>
+                            <div style="margin-top: 10px;;">
+                                <button (click)="saveSection()" class="button"
+                                    style="background-color: #004578; color: #fff;">
+                                    Enregistrer
+                                </button>
+                                <button (click)="addSection(sous)" class="button primary">
+                                    Ajouter un sous-titre
+                                </button>
+                                <button (click)="addParagraphe(sous)" class="button primary">
+                                    Ajouter un paragraphe
+                                </button>
+                                <button (click)="addImage()" class="button primary">
+                                    Ajouter une image
+                                </button>
+                            </div>
+                        </div>
+
+                        <p class="text-leader2" *ngIf="sous.texte" (click)="edit(sous)">
+                            {{sous.texte}}
+                        </p>
+                        <div *ngIf="sous.texte && editcode === sous.id" style="margin-top: 10px;;">
+                            <textarea type="text" [(ngModel)]="sous.texte" data-role="textarea"></textarea>
+                        </div>
+
+                        <div *ngIf="sous.legende" style="text-align: center; margin: 20px;">
+                            <img [src]="sous.src" style="width: 50%; border: 1px solid #777;">
+                            <div style="padding: 5px;">
+                                {{sous.legende}}
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let s of sous.contenu">
+                            <h4 *ngIf="s.titre" (click)="edit(s)">
+                                {{s.titre}}
+                            </h4>
+                            <div *ngIf="s.titre && editcode === s.id">
+                                <div>
+                                    <input type="text" [(ngModel)]="s.titre" data-role="input">
+                                </div>
+                                <div style="margin-top: 10px;;">
+                                    <button (click)="saveSection()" class="button"
+                                        style="background-color: #004578; color: #fff;">
+                                        Enregistrer
+                                    </button>
+                                    <button (click)="addSection(s)" class="button primary">
+                                        Ajouter un sous-titre
+                                    </button>
+                                    <button (click)="addParagraphe(s)" class="button primary">
+                                        Ajouter un paragraphe
+                                    </button>
+                                    <button (click)="addImage()" class="button primary">
+                                        Ajouter une image
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-leader2" *ngIf="s.texte" (click)="edit(s)">
+                                {{s.texte}}
+                            </p>
+                            <div *ngIf="s.texte && editcode === s.id" style="margin-top: 10px;;">
+                                <textarea type="text" [(ngModel)]="s.texte" data-role="textarea"></textarea>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div *ngIf="livres && livres.length>0">
+            <h4>
+                Bibliographie de la section
+            </h4>
+            <ul>
+                <li *ngFor="let livre of livres">
+                    {{livre.titre}} - {{livre.auteur}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="bibliographie" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <form [formGroup]="bibliographieForm" (ngSubmit)="onSubmitBibliographieForm()">
+        <div class="dialog-title">
+            Ajouter une référence bibliographique
+        </div>
+        <div class="dialog-content">
+            <div style="margin-bottom: 10px;">
+                <input formControlName="titre" data-prepend="Titre de l'oeuvre" type="text" data-role="input">
+
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input formControlName="auteur" data-prepend="Auteur" type="text" data-role="input">
+
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button type="submit" [disabled]="bibliographieForm.invalid" style="background-color: #004578; color: #fff"
+                class="button js-dialog-close">
+                Terminé
+            </button>
+        </div>
+    </form>
+</div>
+<div id="image" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <form [formGroup]="imageForm" (ngSubmit)="onSubmitImageForm()">
+        <div class="dialog-title">
+            Ajouter un graphique
+        </div>
+        <div class="dialog-content">
+            <div style="margin-bottom: 10px;">
+                <input formControlName="source" data-prepend="Source" (change)="onFileChange($event)" type="file"
+                    accept="image/x-png,image/jpeg" data-role="file">
+
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input formControlName="libelle" data-prepend="Légende" type="text" data-role="input">
+
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button type="submit" [disabled]="imageForm.invalid" style="background-color: #004578; color: #fff"
+                class="button js-dialog-close">
+                Terminé
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+ul li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+ul li:hover{
+    opacity: 0.8;
+}
+
+.document {
+    cursor: pointer; 
+    padding: 15px; 
+    padding-top: 0px; 
+    border: 1px solid #aaa
+}
+.document:hover{
+    opacity: 0.5;
+}

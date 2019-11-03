@@ -1,0 +1,36 @@
+ul li {
+    font-weight: 100;
+    cursor: pointer;
+}
+ul li:hover{
+    opacity: 0.8;
+}
+
+ul {
+    margin-left: 0px;
+}
+
+small {
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.bouton {
+    cursor: pointer;
+}
+.bouton:hover{
+    opacity: 0.5;
+}
+
+.titre {
+    cursor: pointer; 
+    color: #004578;
+}
+.titre:hover {
+    opacity: 0.5;
+}
+
+.button.muanza {
+    background-color: #004578;
+    color: #fff;
+}

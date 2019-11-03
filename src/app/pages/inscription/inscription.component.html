@@ -1,0 +1,49 @@
+<div>
+    <div style="padding: 40px;">
+        <h2 style="margin-bottom: 20px; font-weight: 100">
+            Veuillez remplir le formulaire
+        </h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegisterForm()" autocomplete="off">
+            <div class="row">
+                <div class="cell-12">
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                    <input formControlName="nomComplet" data-prepend="Nom complet " autocomplete="false" type="text"
+                        data-role="input">
+                </div>
+                <div class="cell-12">
+                    <input formControlName="email" data-prepend="Login " autocomplete="false" type="text"
+                        data-role="input">
+                </div>
+                <div class="cell-12">
+                    <input formControlName="passe" data-prepend="Mot de passe" type="password" data-role="input">
+                </div>
+                <div class="cell-12">
+                    <input formControlName="confirmPasse" data-prepend="Confirmer mot de passe " type="password"
+                        data-role="input">
+                </div>
+                <div class="cell-12">
+                    <select formControlName="role" data-prepend="Rôle" data-role="select">
+                        <option value="1">
+                            Administrateur
+                        </option>
+                        <option value="2">
+                            Responsable
+                        </option>
+                        <option value="3">
+                            Contributeur
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell-12">
+                    <button type="submit" [disabled]="registerForm.invalid || !activeForm"
+                        style="background-color: #004578; color: #fff" class="button">
+                        Terminé
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

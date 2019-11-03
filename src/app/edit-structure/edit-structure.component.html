@@ -1,0 +1,195 @@
+<div style="padding: 30px; padding-top: 0px ; background-color: #fafafa">
+    <div *ngIf="!apercu" style="">
+        <div style="cursor: pointer" (click)="editDocument()">
+            <h4>
+                {{document.titre ? document.titre: 'Nouveau document'}}
+                <span *ngIf="document.espece" style="color: #004578;">
+                    #{{document.espece.nom}}
+                </span>
+            </h4>
+            <p class="text-leader2" style="margin-top: -12px;">
+                {{document.description ? document.description: 'Aucune description'}}
+            </p>
+            <div style="margin-top: 5px;">
+                Créé le
+                <b>{{document.date | date:'dd-MM-yyyy'}}</b>
+                par
+                <b>{{document.proprietaire.nomComplet}}</b>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px; margin-left: 1px;">
+            <button (click)="enregistrer()" class="button muanza" style="margin-right: 10px;">
+                <span class="mif-floppy-disk" style="margin-right: 5px;"></span>
+                Enregistrer
+            </button>
+            <button (click)="addSection()" class="button muanza" style="margin-right: 10px;">
+                <span class="mif-plus" style="margin-right: 5px;"></span>
+                Ajouter un grand titre
+            </button>
+            <button (click)="editDocument()" class="button muanza" style="margin-right: 10px;">
+                <span class="mif-pencil" style="margin-right: 5px;"></span>
+                Modifier les infos générales
+            </button>
+            <button (click)="voir()" class="button muanza" style="margin-right: 10px;">
+                <span class="mif-eye" style="margin-right: 5px;"></span>
+                Aperçu
+            </button>
+        </div>
+        <div class="row" style="margin-top: 20px">
+            <ng-container *ngFor="let section of document.sections">
+                <div class="cell-12">
+                    <div style="padding: 5px; padding-left: 10px; padding-right: 10px; border: 1px solid #004500">
+                        <b class="titre" (click)="edit_section()">
+                            {{section.titre}}
+                        </b>
+                        <span style="margin-left: 10px;">
+                            {{section.utilisateur ? section.utilisateur.nomComplet: 'Aucun responsable'}}
+                        </span>
+                        <span style="float: right;">
+                            <span *ngIf="!section.valide" style="margin-right: 20px;" class="bouton"
+                                (click)="valider(section)">
+                                <fa name="check"></fa>
+                            </span>
+                            <span *ngIf="section.valide" style="margin-right: 20px; color:lightskyblue" class="bouton"
+                                (click)="unValider(section)">
+                                <fa name="check"></fa>
+                                <fa name="check" style="margin-left: -8px;;"></fa>
+                            </span>
+                            <span style="margin-right: 20px;" class="bouton" (click)="editSection(section)">
+                                <fa name="pencil"></fa>
+                            </span>
+                            <span class="bouton" (click)="supprimer(section)">
+                                <fa name="trash"></fa>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <ng-container *ngFor="let sous of section.contenu">
+                    <div *ngIf="sous.titre" class="cell-12">
+                        <div style="padding: 5px; padding-left: 10px; padding-right: 10px; border: 1px solid #004500">
+                            <b class="titre" (click)="edit_section()">
+                                {{sous.titre}}
+                            </b>
+                            <span style="margin-left: 10px;">
+                                {{sous.utilisateur ? sous.utilisateur.nomComplet: 'Aucun responsable'}}
+                            </span>
+                            <span style="float: right;">
+                                <span *ngIf="!sous.valide" style="margin-right: 20px;" class="bouton"
+                                    (click)="valider(sous)">
+                                    <fa name="check"></fa>
+                                </span>
+                                <span *ngIf="sous.valide" style="margin-right: 20px; color:lightskyblue"
+                                    class="bouton" (click)="unValider(sous)">
+                                    <fa name="check"></fa>
+                                    <fa name="check" style="margin-left: -8px;;"></fa>
+                                </span>
+                                <span style="margin-right: 20px;" class="bouton" (click)="editSousSection(sous)">
+                                    <fa name="pencil"></fa>
+                                </span>
+                                <span class="bouton" (click)="supprimer(sous)">
+                                    <fa name="trash"></fa>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+
+            </ng-container>
+        </div>
+        <div class="row" style="margin-top: 20px">
+            <ng-container *ngFor="let section of document.sections">
+                <div *ngIf="section.utilisateur" class="cell-4">
+                    <div style="padding: 10px; border: 1px solid #aaa">
+                        {{section.utilisateur.nomComplet}}<br>
+                        <b>{{section.titre}}</b>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="demoDialog1" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <form [formGroup]="sectionForm" (ngSubmit)="onSubmitSectionForm()">
+        <div class="dialog-title">
+            {{libelleAjoutTitre}}
+        </div>
+        <div class="dialog-content">
+            Définissez le titre et les contributeurs
+            <div style="margin-bottom: 10px;">
+                <input formControlName="libelle" data-prepend="Libellé du titre" type="text" data-role="input">
+                <small>Le nom apparaitra tel quel sur le document</small>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <select formControlName="utilisateur" data-prepend="Responsable" type="text" data-role="select">
+                    <option disabled>
+                        Responsable
+                    </option>
+                    <option [ngValue]="u" *ngFor="let u of utilisateurs">
+                        {{u.nomComplet}}
+                    </option>
+                </select>
+                <small>Les utilisateurs auront le droit de modifier cette section</small>
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button style="background-color: #004578; color: #fff" class="button js-dialog-close">Terminé</button>
+            <button class="button js-dialog-close">Annuler</button>
+        </div>
+    </form>
+</div>
+<div id="dialogueSousSection" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <form [formGroup]="sectionForm" (ngSubmit)="onSubmitSectionForm()">
+        <div class="dialog-title">
+            {{libelleAjoutTitre}}
+        </div>
+        <div class="dialog-content">
+            Définissez le titre et les contributeurs
+            <div style="margin-bottom: 10px;">
+                <input formControlName="libelle" data-prepend="Libellé du titre" type="text" data-role="input">
+                <small>Le nom apparaitra tel quel sur le document</small>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <select formControlName="utilisateur" data-prepend="Responsable" type="text" data-role="select">
+                    <option disabled>
+                        Responsable
+                    </option>
+                    <option [ngValue]="u" *ngFor="let u of contributeurs">
+                        {{u.nomComplet}}
+                    </option>
+                </select>
+                <small>Les utilisateurs auront le droit de modifier cette section</small>
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button style="background-color: #004578; color: #fff" class="button js-dialog-close">Terminé</button>
+            <button class="button js-dialog-close">Annuler</button>
+        </div>
+    </form>
+</div>
+<div id="demoDialog2" class="dialog" data-role="dialog" data-close-button="true" data-width="800">
+    <form [formGroup]="documentForm" (ngSubmit)="onSubmitDocumentForm()">
+        <div class="dialog-title">
+            Modifier les informations générales
+        </div>
+        <div class="dialog-content">
+            <div style="margin-bottom: 10px;">
+                <input formControlName="titre" data-prepend="Titre du document" type="text" data-role="input">
+                <small>Le nom apparaitra tel quel sur le document</small>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <textarea formControlName="description" data-prepend="Description" data-role="textarea">
+
+                </textarea>
+            </div>
+        </div>
+        <div class="dialog-actions">
+            <button type="submit" [disabled]="documentForm.invalid" style="background-color: #004578; color: #fff"
+                class="button js-dialog-close">
+                Terminé
+            </button>
+        </div>
+    </form>
+</div>
