@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 export class ConnexionComponent implements OnInit {
 
   connexionForm: FormGroup;
+  encoursDeConnexion = false;
 
   constructor(private userService: UtilisateurService, private formBuilder: FormBuilder, private router: Router) { }
 
@@ -28,14 +29,21 @@ export class ConnexionComponent implements OnInit {
   }
 
   onSubmitConnexionForm() {
+    this.encoursDeConnexion = true;
     const formValue = this.connexionForm.value;
     console.log(formValue);
     const login = formValue.login;
     const passe = formValue.passe;
     this.userService.connexion(login, passe).then((resultat: any) => {
       console.log(resultat);
+      this.encoursDeConnexion = false;
       localStorage.setItem('ACNPUtilisateur', JSON.stringify(resultat));
       this.getEspeces().then(() => {
+        this.router.navigate(['accueil']);
+        /*
+        if (resultat.role === '0') {
+          this.router.navigate(['administration']);
+        }
         if (resultat.role === '1') {
           this.router.navigate(['proprietaire']);
         }
@@ -44,7 +52,7 @@ export class ConnexionComponent implements OnInit {
         }
         if (resultat.role === '3') {
           this.router.navigate(['contributeur']);
-        }
+        } */
       }).catch((e) => {
         console.log(e);
       });

@@ -3,6 +3,20 @@
         <div class="row">
             <div class="cell-2" style="height: 110vh; margin-top: -20px; background-color: #111; padding-top: 20px;">
                 <div style="height: 100vh;">
+                    <h4 (click)="notifications()" title="Notifications" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer;">
+                        <span style="font-size: 0.9em">
+                            <i class="mif-earth"></i>
+                        </span>
+                    </h4>
+                    <h4 (click)="actualiser()" title="Actualiser" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer">
+                        <i class="mif-refresh"></i>
+                    </h4>
+                    <h4 (click)="dashboard()" title="Tableau de bord" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer">
+                        <i class="mif-chart-bars"></i>
+                    </h4>
                     <div style="position: absolute; bottom:20px;; width: 100%; left: 0;">
                         <h4 (click)="changerPasse()" title="Changez de mot de passe"
                             style="cursor: pointer; margin-bottom: 30px;;" class="text-center pointeur">
@@ -16,7 +30,7 @@
                 </div>
 
             </div>
-            <div class="cell-10">
+            <div class="cell-10" style="height: 100vh; overflow-y: scroll; margin-top: -6px;">
                 <div style="padding: 15px; padding-top: 0px;">
                     <h1 style="margin-top: 0px;">
                         ACNP
@@ -24,9 +38,21 @@
 
                     <h4>
                         Mes chapitres
+
+                        <span style="float: right; cursor: pointer;">
+                            <i class="mif-refresh" (click)="getDocuments()"></i>
+                        </span>
                     </h4>
+                    <span *ngIf="documents.length === 0">
+                        Vous n'êtes encore responsable d'aucun chapitre
+                    </span>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <ng-container *ngFor="let d of documents">
+                            <div style="margin-top: -5px;;">
+                                <h4>
+                                    <b>{{d.titre}}</b>
+                                </h4>
+                            </div>
                             <ng-container *ngFor="let section of d.sections">
                                 <li *ngIf="isMySection(section)" (click)="redaction(d, section)"
                                     style="padding-bottom: 10px; ; border-bottom: 1px solid #eee;">
@@ -34,12 +60,29 @@
                                         <span class="text-leader2">
                                             {{section.titre}}
                                         </span>
-                                        <div style="margin-top: -5px;;">
-                                            <small>
-                                                <b>{{d.titre}}</b>
-                                            </small>
-                                        </div>
+                                        
                                     </span>
+                                    <ul style="padding-top: 5px;">
+                                        <ng-container *ngFor="let sous of section.contenu">
+                                            <li *ngIf="sous.titre">
+                                                <span>
+                                                    {{sous.titre}}
+                                                </span>
+                                                <small style="font-size: 0.8; color:#777">
+                                                    <br>
+                                                    Dernière modification le : {{sous.derniereModification | date:'yyyy-MM-dd'}}
+                                                </small>
+                                                <span class="fg-white">
+                                                    <br>
+                                                    <i class="mif-user fg-green"></i>
+                                                    {{sous.utilisateur ? sous.utilisateur.nomComplet: 'Aucun responsable'}}
+                                                    <span *ngIf="sous.valide" class="fg-green" style="margin-left: 10px;">
+                                                        <fa name="check"></fa>
+                                                    </span>
+                                                </span>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
                                 </li>
                             </ng-container>
                         </ng-container>
@@ -47,10 +90,7 @@
 
 
                 </div>
-                <div style="position: absolute; padding: 20px; bottom: 0; left: 0">
-                    &copy; ANAFOR
-                </div>
-
+                
             </div>
         </div>
 

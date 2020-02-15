@@ -22,9 +22,15 @@
                         data-role="input">
                 </div>
                 <div class="cell-12">
-                    <select formControlName="role" data-prepend="Rôle" data-role="select">
-                        <option value="1">
+                    <label>
+                        Rôle : 
+                    </label>
+                    <select formControlName="role" data-role="select" multiple>
+                        <option value="0">
                             Administrateur
+                        </option>
+                        <option value="1">
+                            Propriétaire
                         </option>
                         <option value="2">
                             Responsable
@@ -33,6 +39,9 @@
                             Contributeur
                         </option>
                     </select>
+                    <small>
+                        
+                    </small>
                 </div>
             </div>
             <div class="row">

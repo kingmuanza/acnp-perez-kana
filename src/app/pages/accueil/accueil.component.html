@@ -1,0 +1,82 @@
+<div class="row" style="height: 100vh">
+    <div class="cell-4" style="height: 100vh; background-color: #eee">
+        <div class="animated slideInLeft" style="padding: 40px; padding-top: 40px;">
+            <h1 class="display4" style="color: #222">
+                ACNP
+            </h1>
+
+            <h2 style="color: #555; width: 90%;">
+                Veuillez choisir le profil avec
+                lequel vous souhaitez vous
+                connecter
+            </h2>
+        </div>
+        <div style="position: absolute; padding: 40px; bottom: 0; left: 0; color: #aaa;">
+            &copy; ANAFOR
+        </div>
+    </div>
+    <div *ngIf="utilisateur" class="cell-8" style="height: 100vh; background-color: #fff">
+        <div *ngIf="utilisateur.id" style="padding: 40px; padding-top: 20px;">
+            <h2 class="animated slideInDown" style="margin-bottom: 20px;">
+                Choisir mon profil
+            </h2>
+
+            <div class="row">
+                <div (click)="goToAdministrateur()" *ngIf="isAdministrateur(utilisateur)" class="col-lg-6">
+                    <div class="profil">
+                        <h4 style="margin-top: 0;">
+                            Administrateur
+                        </h4>
+                        <div style="margin-top: -15px;">
+                            Gérez les comptes utilisateurs et les espèces
+                        </div>
+                    </div>
+                </div>
+                <div (click)="goToProprietaire()" *ngIf="isProprietaire(utilisateur)" class="col-lg-6">
+                    <div class="profil">
+                        <h4 style="margin-top: 0;">
+                            Propriétaire
+                        </h4>
+                        <div style="margin-top: -15px;">
+                            Gérez la structure du document,
+                            affectez des parties à vos collaborateurs et
+                            suivez l'évolution des modifications
+                        </div>
+                    </div>
+                </div>
+                <div (click)="goToResponsable()" *ngIf="isResponsable(utilisateur)" class="col-lg-6">
+                    <div class="profil">
+                        <h4 style="margin-top: 0;">
+                            Responsable
+                        </h4>
+                        <div style="margin-top: -15px;">
+                            Suivez l'évolution des chapitres qui vous sont confiés
+                        </div>
+                    </div>
+                </div>
+                <div (click)="goToContributeur()" *ngIf="isContributeur(utilisateur)" class="col-lg-6">
+                    <div class="profil">
+                        <h4 style="margin-top: 0;">
+                            Contributeur
+                        </h4>
+                        <div style="margin-top: -15px;">
+                            Apportez du contenu à la partie qui vous est confiée
+                        </div>
+                    </div>
+                </div>
+                <div (click)="goToInvite()" class="col-lg-6">
+                    <div class="profil">
+                        <h4 style="margin-top: 0;">
+                            Invité
+                        </h4>
+                        <div style="margin-top: -15px;">
+                            Accès aux archives
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

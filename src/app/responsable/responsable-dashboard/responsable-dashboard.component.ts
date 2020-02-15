@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router } from '@angular/router';
 import * as Metro from 'metro4-dist';
 import * as firebase from 'firebase';
@@ -9,12 +8,13 @@ import { UtilisateurService } from 'src/app/services/utilisateur.service';
 import { ACNPDocument } from 'src/app/models/document.model';
 import { Section } from 'src/app/models/section.model';
 
+
 @Component({
-  selector: 'app-responsable',
-  templateUrl: './responsable.component.html',
-  styleUrls: ['./responsable.component.scss']
+  selector: 'app-responsable-dashboard',
+  templateUrl: './responsable-dashboard.component.html',
+  styleUrls: ['./responsable-dashboard.component.scss']
 })
-export class ResponsableComponent implements OnInit {
+export class ResponsableDashboardComponent implements OnInit {
 
   documents = [];
   utilisateur: Utilisateur;
@@ -29,10 +29,21 @@ export class ResponsableComponent implements OnInit {
       this.getUtilisateurs();
     });
     this.userService.emit();
+
   }
 
-  notifications() {
-    this.router.navigate(['responsable', 'notifications']);
+
+  valider(section: Section) {
+    const oui = confirm('Êtes-vous sûr de vouloir valider cette section ?');
+    if (oui) {
+      section.valide = true;
+    }
+  }
+  unValider(section: Section) {
+    const oui = confirm('Êtes-vous sûr d\'annuler la validation de cette section ?');
+    if (oui) {
+      section.valide = false;
+    }
   }
 
   dashboard() {
@@ -43,8 +54,6 @@ export class ResponsableComponent implements OnInit {
     this.getDocuments();
 
   }
-
-
 
   isMySection(section: Section) {
     if (section.utilisateur) {
@@ -184,6 +193,5 @@ export class ResponsableComponent implements OnInit {
   validations() {
 
   }
-
 
 }

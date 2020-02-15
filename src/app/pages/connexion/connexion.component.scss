@@ -1,0 +1,13 @@
+$couleur-primaire: #eee;
+$couleur-primaire2: rgba(0, 69, 120, 1);
+
+.muanza-image-back {
+    background-position: center center;
+    background-size: cover;
+    filter: blur(0px);
+    background-image: url('../../../assets/img/collaboration.jpeg');
+}
+
+.muanza-bg-primaire {
+    background-color: $couleur-primaire;
+}

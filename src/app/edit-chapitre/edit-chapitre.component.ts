@@ -9,6 +9,7 @@ import { ACNPDocument } from 'src/app/models/document.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Commentaire } from '../models/commentaire.model';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { ACNPNotification } from '../models/acnpnotification.model';
 
 @Component({
   selector: 'app-edit-chapitre',
@@ -24,6 +25,7 @@ export class EditChapitreComponent implements OnInit {
   commentaireForm: FormGroup;
   commentaires = [];
   sous;
+  notifications = [];
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private userService: UtilisateurService) { }
 
@@ -75,12 +77,70 @@ export class EditChapitreComponent implements OnInit {
     Metro.dialog.open('#commentaire');
   }
 
-  valider(sous: Section) {
+  valider(sous: Section, section: Section) {
     sous.valide = true;
     console.log(sous);
     console.log(this.document.sections);
-    this.saveOnFirebase();
+    section.valide = true;
+    for (let i = 0; i < section.contenu.length; i++) {
+      const s = section.contenu[i];
+      if (s['titre'] && !s['valide']) {
+        section.valide = false;
+      }
+    }
+    this.createNotification(sous, 'validation');
+    if (section.valide) {
+      setTimeout(() => {
+        this.createNotification(section, 'validation');
+        this.saveOnFirebase();
+      }, 1000);
+    } else  {
+      this.saveOnFirebase();
+    }
 
+  }
+  unValider(sous: Section, section: Section) {
+    sous.valide = false;
+    console.log(sous);
+    console.log(this.document.sections);
+    section.valide = false;
+    this.createNotification(sous, 'unvalidation');
+    setTimeout(() => {
+      this.createNotification(section, 'unvalidation');
+      this.saveOnFirebase();
+    }, 1000);
+
+  }
+
+  createNotification(section: Section, type) {
+    const notification = new ACNPNotification();
+    notification.date = new Date();
+    notification.section = section;
+    notification.type = type;
+    notification.nomdocument = this.document.titre;
+    notification.iddocument = this.document.id;
+
+    notification.utilisateur = this.userService.utilisateur;
+    notification.idutilisateurs.push(this.userService.utilisateur.id);
+    if (section.utilisateur) {
+      notification.idutilisateurs.push(section.utilisateur.id);
+    }
+    console.log('notification');
+    console.log(notification);
+    this.notifications.push(notification);
+  }
+
+  async sendNotifications() {
+    console.log('Sending notifications...');
+    const db = firebase.firestore();
+    if (this.notifications.length > 0) {
+      for (let i = 0; i < this.notifications.length; i++) {
+        const notification = this.notifications[i];
+        const n = JSON.stringify(notification);
+        await db.collection('notifications').doc(notification.id).set(JSON.parse(n));
+      }
+    }
+    this.notifications = [];
   }
 
   saveOnFirebase() {
@@ -96,7 +156,10 @@ export class EditChapitreComponent implements OnInit {
 
     const db = firebase.firestore();
     db.collection('documents').doc(this.document.id).set(JSON.parse(document)).then(() => {
-      Metro.notify.create('Enregistré', '', { cls: 'success' });
+      this.sendNotifications().then(() => {
+        Metro.notify.create('Enregistré', '', { cls: 'success' });
+        this.notifications = [];
+      });
     });
   }
 

@@ -3,6 +3,7 @@ import { Paragraphe } from './paragraphe.model';
 import { Image } from './image.model';
 import { Livre } from './livre.model';
 import { Commentaire } from './commentaire.model';
+import { Validation } from './validation.model';
 
 export class Section {
 
@@ -12,8 +13,12 @@ export class Section {
     derniereModification: Date;
     contenu: Array<Section | Paragraphe | Image>;
     valide?: boolean;
+    termine?: boolean;
+    validation?: Validation;
     livres?: Array<Livre>;
     commentaires?: Array<Commentaire>;
+    introduction?: boolean;
+    newCreee: boolean;
 
     constructor(titre?: string) {
         this.id = 'section' + new Date().toISOString() + '@' + Math.random() * 1000000;

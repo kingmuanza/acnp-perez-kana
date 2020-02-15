@@ -11,6 +11,7 @@ import { ContributeurComponent } from './pages/dashboard/contributeur/contribute
 import { PropioGuard } from './pages/dashboard/proprio/proprio.guard';
 import { ChangerPasseComponent } from './pages/changer-passe/changer-passe.component';
 import { ApercuComponent } from './apercu/apercu.component';
+import { AccueilComponent } from './pages/accueil/accueil.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
     loadChildren: './invite/invite.module#InviteModule'
   },
   { path: 'connexion', component: ConnexionComponent },
+  { path: 'accueil', component: AccueilComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'changer-passe', component: ChangerPasseComponent },
   { path: 'dashboard', component: DashboardComponent },

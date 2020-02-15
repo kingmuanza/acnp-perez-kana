@@ -3,28 +3,54 @@
         <button class="button secondary" (click)="backClicked()">
             Précédent
         </button>
+        <button class="button primary" (click)="exportToWord()">
+            Télécharger le document
+        </button>
     </div>
+
     <ng-container *ngFor="let section of document.sections">
-        <h1>
-            {{section.titre}}
-        </h1>
-        <ng-container *ngFor="let sous of section.contenu">
-            <h2 *ngIf="sous.titre">
-                {{sous.titre}}
-            </h2>
-            <p class="text-leader2" *ngIf="sous.texte">
-                {{sous.texte}}
-            </p>
-            <div *ngIf="sous.legende">
-                Une image ici
-            </div>
-            <ng-container *ngFor="let s of sous.contenu">
-                <h3>
-                    {{s.titre}}
-                </h3>
+        <ng-container>
+            <h1>
+                {{section.titre}}
+            </h1>
+            <ng-container *ngFor="let sous of section.contenu">
+
+                <h2 class="muanza-sous-titre" *ngIf="sous.titre">
+                    {{sous.titre}}
+                    <span *ngIf="sous.valide" style="margin-right: 40px"
+                        class="bouton fg-green">
+                        <fa name="check"></fa>
+                        <fa name="check" style="margin-left: -15px;;"></fa>
+                    </span>
+                </h2>
+                
+
+                <p class="text-leader2" *ngIf="sous.texte">
+                    {{sous.texte}}
+                </p>
+
+                <div *ngIf="sous.legende" style="text-align: center; margin: 20px;">
+                    <img [src]="sous.src" style="width: 50%; border: 1px solid #777;">
+                    <div style="padding: 5px;">
+                        {{sous.legende}}
+                    </div>
+                </div>
+                <ng-container *ngFor="let s of sous.contenu">
+                    <h3 *ngIf="s.titre">
+                        {{s.titre}}
+                    </h3>
+                    <p class="text-leader2" *ngIf="s.texte">
+                        {{s.texte}}
+                    </p>
+                    <div *ngIf="s.legende" style="text-align: center; margin: 20px;">
+                        <img [src]="s.src" style="width: 50%; border: 1px solid #777;">
+                        <div style="padding: 5px;">
+                            {{s.legende}}
+                        </div>
+                    </div>
+                </ng-container>
             </ng-container>
         </ng-container>
-
     </ng-container>
 
 </div>

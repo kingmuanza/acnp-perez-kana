@@ -8,15 +8,26 @@
                     </h1>
                     <ng-container *ngFor="let sous of section.contenu">
 
-                        <h2 *ngIf="sous.titre" (click)="edit(sous)">
+                        <h2 class="muanza-sous-titre" *ngIf="sous.titre" (click)="edit(sous)">
                             {{sous.titre}}
+                            <span *ngIf="sous.valide" style="margin-right: 40px"
+                                class="bouton fg-green">
+                                <fa name="check"></fa>
+                                <fa name="check" style="margin-left: -15px;;"></fa>
+                            </span>
                         </h2>
                         <div *ngIf="sous.titre && editcode === sous.id">
                             <div style="margin-top: 10px;;">
-                                <button (click)="valider(sous)" class="button"
+                                <button *ngIf="!sous.valide" (click)="valider(sous, section)" class="button"
                                     style="background-color: #004578; color: #fff;">
                                     Valider cette section
                                 </button>
+
+                                <button *ngIf="sous.valide" (click)="unValider(sous, section)" class="button"
+                                    style="background-color: orangered; color: #fff;">
+                                    Annuler la validation
+                                </button>
+
                                 <button (click)="addCommentaire(sous)" class="button primary">
                                     Envoyer un commentaire
                                 </button>
@@ -35,7 +46,7 @@
                             </div>
                         </div>
 
-                        <p class="text-leader2" *ngIf="sous.texte" (click)="edit(sous)">
+                        <p class="text-leader2" *ngIf="sous.texte">
                             {{sous.texte}}
                         </p>
                         <div *ngIf="sous.texte && editcode === sous.id" style="margin-top: 10px;;">
@@ -49,7 +60,7 @@
                             </div>
                         </div>
                         <ng-container *ngFor="let s of sous.contenu">
-                            <h3 *ngIf="s.titre" (click)="edit(s)">
+                            <h3 *ngIf="s.titre">
                                 {{s.titre}}
                             </h3>
                             <div *ngIf="s.titre && editcode === s.id">
@@ -72,7 +83,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p class="text-leader2" *ngIf="s.texte" (click)="edit(s)">
+                            <p class="text-leader2" *ngIf="s.texte">
                                 {{s.texte}}
                             </p>
                             <div *ngIf="s.texte && editcode === s.id" style="margin-top: 10px;;">

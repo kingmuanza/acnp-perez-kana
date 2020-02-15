@@ -1,24 +1,34 @@
-<div class="row" style="height: 100vh">
-    <div class="cell-6" style="height: 100vh; background-color: #004578">
-        <div class="animated slideInLeft" style="padding: 40px; padding-top: 40px;">
-            <h1 class="display4" style="color: #fcfcfc">
-                ACNP
-            </h1>
 
-            <h1 style="color: #ccc; width: 90%;">
-                Application de génération automatique de documents
-            </h1>
-        </div>
-        <div style="position: absolute; padding: 40px; bottom: 0; left: 0; color: #aaa;">
-            &copy; ANAFOR
+
+<div class="row" style="height: 100vh; margin: 0; padding: 0;">
+    <div class="cell-4" data-shadow="true" style="height: 100vh;margin: 0; padding: 0;">
+
+
+        <div class="muanza-bg-primaire" style="height: 100vh;">
+            <div class="" style="padding: 40px; padding-top: 40px;">
+                <h1 class="display4 animated slideInLeft" style="color: #222">
+                    ACNP
+                </h1>
+
+                <h1 class="animated fadeIn" style="color: #555; width: 100%;">
+                    Application de génération automatique de documents
+                </h1>
+            </div>
+            <div style="position: absolute; padding: 40px; bottom: 0; left: 0; color: #aaa;">
+                &copy; ANAFOR
+            </div>
         </div>
     </div>
-    <div class="cell-6" style="height: 100vh; background-color: #fafafa">
-        <div class="animated slideInDown" style="padding: 40px; padding-top: 20px;">
-            <p class="text-leader" style="margin-bottom: 20px;">
+    <div class="cell-8" style="height: 100vh;margin: 0; padding: 0; ">
+
+        <div class="muanza-image-back" style="height: 100vh; width: 100%;">
+        </div>
+        <div class=""
+            style="background-color: rgba(255, 255, 255, 1); height: 100vh; margin-top: -100vh; padding: 40px; padding-top: 20px;">
+            <h2 class="normal animated slideInDown" style="margin-bottom: 20px;">
                 Veuillez vous connecter !
-            </p>
-            <form [formGroup]="connexionForm" (ngSubmit)="onSubmitConnexionForm()">
+            </h2>
+            <form class="animated fadeIn delay-1s" [formGroup]="connexionForm" (ngSubmit)="onSubmitConnexionForm()">
                 <div class="row">
                     <div class="cell-5">
                         <input type="text" formControlName="login" placeholder="Login" data-role="input">
@@ -27,21 +37,24 @@
                         <input type="password" formControlName="passe" placeholder="Mot de passe" data-role="input">
                     </div>
                     <div class="cell-2">
-                        <button type="submit" [disabled]="connexionForm.invalid" class="button"
-                            style="color: #fff; background-color: #005A9E; border-color: #004578">
+                        <button type="submit" [disabled]="connexionForm.invalid || encoursDeConnexion" class="button"
+                            style="width: 100%;">
                             Connexion
                         </button>
                     </div>
                 </div>
             </form>
 
-            <div class="animated fadeIn delay-1s" style="margin-top: 40px; border: 1px solid #aaa; padding: 20px;">
-                <small>
-                    Si vous ne disposez par de compte, veuillez contacter le responsable du projet 
+            <div class="animated fadeIn delay-1s" style="background-color: #fafafa; margin-top: 40vh; margin-left: 50%; border: 1px solid #eee; padding: 20px;">
+                <small class="normal">
+                    Si vous ne disposez par de compte, veuillez contacter le responsable du projet
                 </small>
             </div>
         </div>
-
     </div>
 
+</div>
+
+<div *ngIf="encoursDeConnexion" style="position: fixed; top:0; left: 0; width: 100vw; height: 40px;">
+    <div data-role="progress" data-type="line" data-small="true"></div>
 </div>

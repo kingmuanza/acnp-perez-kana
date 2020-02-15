@@ -22,6 +22,7 @@ import { ResponsableModule } from './responsable/responsable.module';
 import { ContributeurModule } from './contributeur/contributeur.module';
 import { InviteModule } from './invite/invite.module';
 import { DocumentViewComponent } from './pages/document-view/document-view.component';
+import { AccueilComponent } from './pages/accueil/accueil.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DocumentViewComponent } from './pages/document-view/document-view.compo
     ValidationsComponent,
     DisplayDocumentsComponent,
     MenuGaucheComponent,
-    ChangerPasseComponent
+    ChangerPasseComponent,
+    AccueilComponent
   ],
   imports: [
     BrowserModule,

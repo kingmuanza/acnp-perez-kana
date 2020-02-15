@@ -1,6 +1,7 @@
 import { Utilisateur } from './utilisateur.model';
 import { Section } from './section.model';
 import { Espece } from './espece.model';
+import { ACNPNotification } from './acnpnotification.model';
 
 export class ACNPDocument {
 
@@ -12,6 +13,7 @@ export class ACNPDocument {
     sections: Array<Section>;
     idcontributeurs?: Array<string>;
     espece?: Espece;
+    notifications?: Array<ACNPNotification>;
 
     constructor(titre?: string) {
         if (titre) {

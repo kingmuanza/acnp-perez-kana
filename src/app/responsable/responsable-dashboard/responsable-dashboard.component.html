@@ -1,0 +1,77 @@
+<div style="padding: 30px; padding-top: 0px;;">
+    <h2>
+        Tableau de bord
+    </h2>
+    <div style="margin-top: -10px;">
+        Suivez l'avancement des chapitres sous votre responsabilité
+    </div>
+    <div class="row" style="margin-top: 20px">
+        <ng-container *ngFor="let d of documents">
+            <ng-container *ngFor="let section of d.sections">
+                <div *ngIf="isMySection(section)"  class="cell-12">
+                    <div (click)="redaction(d, section)" class="chapitre" [ngClass]="{'validee': section.valide}">
+                        <div style="padding: 5px; padding-left: 10px; padding-right: 10px; border: 1px solid #004500">
+                            <b class="titre">
+                                {{section.titre}}
+                            </b>
+                            <span style="margin-left: 10px;">
+                                <b *ngIf="section.utilisateur" class="fg-green">
+                                    {{section.utilisateur.nomComplet}}
+                                </b>
+                                <span *ngIf="!section.utilisateur" style="color: #004578;">
+                                    <a style="color: red;">
+                                        <u style="cursor: pointer;">Aucun responsable</u>
+                                        <span style="padding-left: 10px;">
+                                            <i class="mif-info"></i>
+                                        </span>
+                                    </a>
+                                </span>
+                            </span>
+                            <span style="float: right;">
+                                <span *ngIf="section.valide" style="cursor:pointer; margin-right: 20px"
+                                    class="bouton fg-green" >
+                                    <fa name="check"></fa>
+                                    <fa name="check" style="margin-left: -8px;;"></fa>
+                                </span>
+                            </span>
+                        </div>
+
+                        <ng-container *ngFor="let sous of section.contenu">
+                            <div *ngIf="sous.titre">
+                                <div
+                                    style="padding: 5px; padding-left: 30px; padding-right: 10px; border: 1px solid #004500">
+                                    <b class="titre">
+                                        {{sous.titre}}
+                                    </b>
+                                    <span style="margin-left: 10px;">
+                                        <b *ngIf="sous.utilisateur" class="fg-green">
+                                            {{section.utilisateur.nomComplet}}
+                                        </b>
+                                        <span *ngIf="!sous.utilisateur" style="color: #004578;">
+                                            <a style="color: orange;">
+                                                <u style="cursor: pointer;">Aucun contributeur</u>
+                                                <span style="padding-left: 10px;">
+                                                    <i class="mif-info"></i>
+                                                </span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                    <span style="float: right;">
+                                        <span *ngIf="!sous.valide && section.termine"
+                                            style="cursor:pointer; margin-right: 20px;" class="bouton">
+                                            <fa name="check"></fa>
+                                        </span>
+                                        <span *ngIf="sous.valide" style="cursor:pointer; margin-right: 20px"
+                                            class="bouton fg-green" >
+                                            <fa name="check"></fa>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

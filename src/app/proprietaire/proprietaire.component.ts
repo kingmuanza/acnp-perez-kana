@@ -19,16 +19,18 @@ export class ProprietaireComponent implements OnInit {
   utilisateur: Utilisateur;
   utilisateurSubscription = new Subscription();
   especes = [];
+  idACNPOUvert = '0';
 
   constructor(private router: Router, private userService: UtilisateurService) { }
 
   ngOnInit() {
+    this.idACNPOUvert = localStorage.getItem('ACNPOuvert');
     this.utilisateurSubscription = this.userService.utilisateurSubject.subscribe((utilisateur: Utilisateur) => {
       this.utilisateur = utilisateur;
       this.refresh();
     });
     this.userService.emit();
-    this.refresh();
+    // this.refresh();
 
   }
 
@@ -61,14 +63,18 @@ export class ProprietaireComponent implements OnInit {
         console.log(doc.data());
         const user = new Utilisateur(doc.data().nomComplet);
         user.id = doc.data().id;
-        if (doc.data().role === '1') {
-          user.qualite = 'Administrateur';
+        user.qualite = '';
+        if (JSON.stringify(doc.data().role).indexOf('0') !== -1) {
+          user.qualite += 'Administrateur';
         }
-        if (doc.data().role === '2') {
-          user.qualite = 'Responsable';
+        if (JSON.stringify(doc.data().role).indexOf('1') !== -1) {
+          user.qualite += 'Propriétaire';
         }
-        if (doc.data().role === '3') {
-          user.qualite = 'Contributeur';
+        if (JSON.stringify(doc.data().role).indexOf('2') !== -1) {
+          user.qualite += 'Responsable';
+        }
+        if (JSON.stringify(doc.data().role).indexOf('3') !== -1) {
+          user.qualite += 'Contributeur';
         }
         utilisateurs.push(user);
       });
@@ -117,6 +123,10 @@ export class ProprietaireComponent implements OnInit {
     this.router.navigate(['changer-passe']);
   }
 
+  voirNotifications() {
+    this.router.navigate(['proprietaire', 'notifications']);
+  }
+
   nouveauDocument() {
     Metro.dialog.open('#choixmodele');
   }
@@ -141,6 +151,7 @@ export class ProprietaireComponent implements OnInit {
   }
 
   ouvrir(d: ACNPDocument) {
+    this.idACNPOUvert = d.id;
     this.router.navigate(['proprietaire', 'manage-document', d.id]);
   }
 

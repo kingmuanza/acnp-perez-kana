@@ -1,0 +1,72 @@
+<div style="padding: 30px; padding-top: 0px;;">
+    <h2>
+        Notifications
+    </h2>
+    <div style="margin-top: -10px;">
+        Retrouvez ici toutes les notifications
+        sur vos documents
+    </div>
+
+    <div class="muanza-notifications">
+        <div *ngFor="let notification of notifications" class="muanza-notification">
+            <div class="row">
+                <div class="col-lg-1">
+                    <span class="fg-darkBlue" *ngIf="notification.type === 'attribution'" style="font-size: 1.8em;">
+                        <i class="mif-user"></i>
+                    </span>
+                    <span *ngIf="notification.type === 'validation'" style="font-size: 1.8em;" class="bouton fg-green">
+                        <fa name="check"></fa>
+                        <fa name="check" style="margin-left: -15px;;"></fa>
+                    </span>
+                    <span *ngIf="notification.type === 'unvalidation'" style="font-size: 1.8em;"
+                        class="bouton fg-orange">
+                        <i class="mif-cross"></i>
+                    </span>
+                </div>
+                <div class="col-lg-2" style="padding-right: 10px;">
+                    <small>
+                        {{notification.date | date: 'HH:mm' }} <br>
+                        {{notification.date | date: 'dd-MM-yyyy' }}
+                    </small>
+                </div>
+                <div class="col-lg-9" style="line-height: 1.15; padding-top: 10px; padding-right: 20px;">
+                    <b *ngIf="notification.nomdocument" class="fg-darkBlue">
+                        {{notification.nomdocument}} :
+                    </b>
+                    <small *ngIf="notification.type === 'attribution'">
+                        {{notification.utilisateur.nomComplet}}
+                        a défini
+                        <b class="fg-darkBlue">
+                            {{notification.section.utilisateur.nomComplet}}
+                        </b>
+                        comme contributeur de la partie
+                        <b>
+                            {{notification.section.titre}}
+                        </b>
+                    </small>
+                    <small *ngIf="notification.type === 'renommage'">
+                        {{notification.utilisateur.nomComplet}}
+                        a renommé un chapitre
+                        <b>
+                            {{notification.section.titre}}
+                        </b>
+                    </small>
+                    <small *ngIf="notification.type === 'validation'">
+                        {{notification.utilisateur.nomComplet}}
+                        a validé la partie
+                        <b>
+                            {{notification.section.titre}}
+                        </b>
+                    </small>
+                    <small *ngIf="notification.type === 'unvalidation'">
+                        {{notification.utilisateur.nomComplet}}
+                        a annulé la validation de la partie
+                        <b>
+                            {{notification.section.titre}}
+                        </b>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

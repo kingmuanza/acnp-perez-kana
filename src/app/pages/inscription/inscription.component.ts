@@ -61,6 +61,12 @@ export class InscriptionComponent implements OnInit {
     });
   }
 
+  onSubmitRegisterForm2() {
+    const valueForm = this.registerForm.value;
+    console.log('valueForm');
+    console.log(valueForm);
+
+  }
   onSubmitRegisterForm() {
     this.activeForm = false;
 

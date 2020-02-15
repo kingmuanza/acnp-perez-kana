@@ -28,17 +28,21 @@ export class UtilisateurService {
         const idutilisateur = resultat.user.uid;
         this.getUtilisateurInfos(idutilisateur).then((user: any) => {
           if (user) {
-
+            this.utilisateur.qualite = '';
             this.utilisateur.nomComplet = user.nomComplet;
             this.utilisateur.id = user.id;
-            if (user.role === '1') {
-              this.utilisateur.qualite = 'Administrateur';
+
+            if (JSON.stringify(user.role).indexOf('0') !== -1) {
+              this.utilisateur.qualite += 'Administrateur';
             }
-            if (user.role === '2') {
-              this.utilisateur.qualite = 'Responsable';
+            if (JSON.stringify(user.role).indexOf('1') !== -1) {
+              this.utilisateur.qualite += 'Propriétaire';
             }
-            if (user.role === '3') {
-              this.utilisateur.qualite = 'Contributeur';
+            if (JSON.stringify(user.role).indexOf('2') !== -1) {
+              this.utilisateur.qualite += 'Responsable';
+            }
+            if (JSON.stringify(user.role).indexOf('3') !== -1) {
+              this.utilisateur.qualite += 'Contributeur';
             }
             this.emit();
             resolve(user);

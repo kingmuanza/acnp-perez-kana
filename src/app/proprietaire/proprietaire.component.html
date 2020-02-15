@@ -3,7 +3,13 @@
         <div class="row">
             <div class="cell-2" style="height: 110vh; margin-top: -20px; background-color: #111; padding-top: 20px;">
                 <div style="height: 100vh;">
-                    <h4 (click)="refresh()" title="Nouveau document" class="text-center pointeur"
+                    <h4 (click)="voirNotifications()" title="Notifications" class="text-center pointeur"
+                        style="margin-bottom: 20px; cursor: pointer;">
+                        <span style="font-size: 0.9em">
+                            <i class="mif-earth"></i>
+                        </span>
+                    </h4>
+                    <h4 (click)="refresh()" title="Actualiser" class="text-center pointeur"
                         style="margin-bottom: 20px; cursor: pointer">
                         <i class="mif-refresh"></i>
                     </h4>
@@ -33,6 +39,9 @@
 
                     <h4>
                         Mes documents
+                        <span style="float: right; cursor: pointer;">
+                            <i class="mif-refresh" (click)="getDocuments()"></i>
+                        </span>
                     </h4>
                     <div *ngFor="let espece of especes" style="padding-bottom: 10px;;">
                         <h6 style="color: #fafafa;">
@@ -47,7 +56,17 @@
                                             {{sectionsValidees(d)}}/{{d.sections.length}}
                                         </span>
                                         <span class="text-leader2">
-                                            {{d.titre}}
+                                            
+                                            <span *ngIf="idACNPOUvert !== d.id">
+                                                {{d.titre}}
+                                            </span>
+                                            <b *ngIf="idACNPOUvert === d.id">
+                                                {{d.titre}}
+                                            </b>
+                                        </span>
+                                        <span>
+                                            <br>
+                                            {{d.espece.nom}}
                                         </span>
                                     </span>
                                 </li>

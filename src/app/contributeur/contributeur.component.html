@@ -25,6 +25,9 @@
                     <h4>
                         Mes sections
                     </h4>
+                    <span *ngIf="documents.length === 0">
+                        Vous n'êtes encore responsable d'aucune partie
+                    </span>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <ng-container *ngFor="let d of documents">
                             <ng-container *ngFor="let section of d.sections">
